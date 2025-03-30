@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, CSSProperties } from 'react';
 import { cn } from '@/utils/cn';
 
 interface ContainerProps {
@@ -6,6 +6,7 @@ interface ContainerProps {
   className?: string;
   as?: React.ElementType;
   id?: string;
+  style?: CSSProperties;
 }
 
 export default function Container({
@@ -13,6 +14,7 @@ export default function Container({
   className,
   as: Component = 'div',
   id,
+  style,
 }: ContainerProps) {
   return (
     <Component
@@ -21,6 +23,7 @@ export default function Container({
         'container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl',
         className
       )}
+      style={style}
     >
       {children}
     </Component>
@@ -31,6 +34,7 @@ export function SectionContainer({
   children,
   className,
   id,
+  style,
 }: ContainerProps) {
   return (
     <section
@@ -39,6 +43,7 @@ export function SectionContainer({
         'py-12 md:py-16 lg:py-24',
         className
       )}
+      style={style}
     >
       <Container>{children}</Container>
     </section>

@@ -35,34 +35,44 @@ export default function ExperienceCard({
       initial="hidden"
       animate={animation}
       className={cn(
-        'relative p-6 md:p-8 rounded-xl border border-slate-800 bg-slate-900/50 backdrop-blur-sm',
-        'hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300',
+        'relative p-6 md:p-8 rounded-xl border backdrop-blur-sm',
+        'transition-all duration-300',
         className
       )}
+      style={{
+        borderColor: 'var(--border-color)',
+        backgroundColor: 'var(--card-bg)',
+        boxShadow: 'var(--card-shadow, 0 4px 6px -1px rgba(0, 0, 0, 0.1))'
+      }}
     >
       {/* Timeline connector */}
       {index > 0 && (
-        <div className="absolute top-0 left-5 md:left-7 w-0.5 h-8 -mt-8 bg-gradient-to-b from-transparent to-blue-500/30" />
+        <div className="absolute top-0 left-5 md:left-7 w-0.5 h-8 -mt-8 bg-gradient-to-b from-transparent" style={{ 
+          backgroundImage: 'linear-gradient(to bottom, transparent, var(--accent-color))' 
+        }} />
       )}
       
       <div className="relative">
         {/* Timeline dot */}
-        <div className="absolute -left-10 top-1 w-4 h-4 rounded-full border-2 border-blue-500 bg-slate-900" />
+        <div className="absolute -left-10 top-1 w-4 h-4 rounded-full border-2 bg-slate-900" style={{ 
+          borderColor: 'var(--accent-color)',
+          backgroundColor: 'var(--background-color)'
+        }} />
         
         <div className="mb-2 flex flex-col md:flex-row md:items-center md:justify-between">
-          <h3 className="text-xl font-bold text-white">{position}</h3>
-          <p className="text-sm text-blue-400 font-medium">{duration}</p>
+          <h3 className="text-xl font-bold" style={{ color: 'var(--text-color)' }}>{position}</h3>
+          <p className="text-sm font-medium" style={{ color: 'var(--accent-color)' }}>{duration}</p>
         </div>
         
-        <p className="text-base md:text-lg font-medium text-slate-300 mb-2">{company}</p>
+        <p className="text-base md:text-lg font-medium mb-2" style={{ color: 'var(--text-color)', opacity: 0.9 }}>{company}</p>
         
-        <p className="text-slate-400 mb-4">{description}</p>
+        <p className="mb-4" style={{ color: 'var(--text-color)', opacity: 0.8 }}>{description}</p>
         
         {achievements.length > 0 && (
-          <ul className="space-y-2 text-sm text-slate-400">
+          <ul className="space-y-2 text-sm" style={{ color: 'var(--text-color)', opacity: 0.7 }}>
             {achievements.map((achievement, idx) => (
-              <li key={idx} className="flex items-start">
-                <span className="mr-2 mt-1.5 h-1.5 w-1.5 rounded-full bg-blue-500 inline-block flex-shrink-0" />
+              <li key={`achievement-${index}-${idx}`} className="flex items-start">
+                <span className="mr-2 mt-1.5 h-1.5 w-1.5 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: 'var(--accent-color)' }} />
                 <span>{achievement}</span>
               </li>
             ))}

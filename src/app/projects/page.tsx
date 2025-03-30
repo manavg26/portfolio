@@ -105,15 +105,23 @@ function determineProjectCategory(technologies: string[]): string {
 // Skeleton component for loading state
 function ProjectCardSkeleton() {
   return (
-    <div className="relative overflow-hidden rounded-xl bg-slate-900 border border-slate-800 animate-pulse">
-      <div className="bg-gradient-to-br from-slate-800 to-slate-700 h-48 md:h-64 w-full"></div>
+    <div className="relative overflow-hidden rounded-xl border animate-pulse" 
+         style={{ 
+           borderColor: 'var(--border-color)',
+           backgroundColor: 'var(--card-bg)'
+         }}>
+      <div className="h-48 md:h-64 w-full" 
+           style={{ 
+             background: 'linear-gradient(to bottom right, var(--gradient-from), var(--gradient-to))',
+             opacity: 0.5 
+           }}></div>
       <div className="p-4 md:p-6 space-y-3">
-        <div className="h-6 bg-slate-800 rounded w-3/4"></div>
-        <div className="h-4 bg-slate-800 rounded w-full"></div>
-        <div className="h-4 bg-slate-800 rounded w-5/6"></div>
+        <div className="h-6 rounded w-3/4" style={{ backgroundColor: 'var(--border-color)' }}></div>
+        <div className="h-4 rounded w-full" style={{ backgroundColor: 'var(--border-color)' }}></div>
+        <div className="h-4 rounded w-5/6" style={{ backgroundColor: 'var(--border-color)' }}></div>
         <div className="flex gap-3 pt-2">
-          <div className="h-8 bg-slate-800 rounded w-20"></div>
-          <div className="h-8 bg-slate-800 rounded w-24"></div>
+          <div className="h-8 rounded w-20" style={{ backgroundColor: 'var(--border-color)' }}></div>
+          <div className="h-8 rounded w-24" style={{ backgroundColor: 'var(--border-color)' }}></div>
         </div>
       </div>
     </div>

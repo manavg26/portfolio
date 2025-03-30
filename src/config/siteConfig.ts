@@ -5,7 +5,7 @@ import { SiTypescript, SiJavascript, SiApachekafka, SiRabbitmq, SiMongodb } from
 
 export const siteConfig = {
   name: "Manav Goel",
-  title: "Senior Software Engineer",
+  title: "Software Engineer",
   description: "Innovative Software Engineer with specialized expertise in backend development, AI integrations, and scalable architecture design.",
   mainNav: [
     { label: "Home", path: "/" },
@@ -33,16 +33,33 @@ export const siteConfig = {
   experience: [
     {
       company: "Paytm",
-      position: "Senior Software Engineer",
-      duration: "2021 - Present",
-      description: "Led the development of Travel AI Wrapper service that handles thousands of concurrent WebSocket connections while maintaining robust security protocols and real-time performance.",
+      position: "Software Developer",
+      duration: "June 2022 - Present",
+      description: "Led the development of backend microservices that handle thousands of concurrent connections while delivering AI-powered features with robust security protocols and real-time performance.",
       achievements: [
-        "Architected and implemented the Travel AI Wrapper service.",
-        "Implemented speech processing services and OAuth authentication.",
-        "Designed scalable architecture for handling high-throughput services."
+        "Architected and developed a comprehensive RESTful microservice architecture enhancing data-sharing capabilities and optimizing decision-making processes, now serving 20K+ daily active users",
+        "Integrated Azure Speech SDK into an AI-driven service, implementing advanced ASR and STT capabilities that improved voice recognition accuracy by 35%",
+        "Designed a scalable provider pattern architecture allowing seamless integration of multiple speech processing vendors without significant code refactoring, decreasing future integration time by 50%",
+        "Implemented an optimized SQL database with connection pooling, ensuring efficient management of concurrent user sessions and enhanced system reliability",
+        "Spearheaded cross-team collaboration to integrate new backend systems, reducing integration issues by 40% through effective communication and leveraging historical data",
+        "Established robust CI/CD pipeline using Jenkins and Argo CD for EKS deployments, reducing deployment time by 65% and manual intervention by 45%",
+        "Containerized applications with Docker, achieving 30% reduction in resource consumption while improving performance with 20% faster deployment times",
+        "Implemented comprehensive monitoring using Grafana and ELK Stack, creating detailed dashboards that decreased bug resolution time by 50%",
+        "Championed Test-Driven Development practices, resulting in 15% fewer post-release defects and 25% faster QA cycles"
       ]
     },
-    // Add other experiences here
+    {
+      company: "Paytm",
+      position: "Software Development Intern",
+      duration: "January 2022 - June 2022",
+      description: "Contributed to improving software quality and performance while learning and implementing best practices in a professional development environment.",
+      achievements: [
+        "Conducted thorough research and delivered a comprehensive 10-page report analyzing 3 production applications, providing actionable recommendations to key stakeholders",
+        "Developed an automated reporting generation system that reduced manual errors by 80% and streamlined operational workflows",
+        "Modernized legacy codebases for 2 production applications, resulting in 50% reduced latency and 25% fewer security vulnerabilities",
+        "Embraced company coding standards and best practices, ensuring clean, consistent, and maintainable code across projects"
+      ]
+    }
   ],
   projects: [
     {

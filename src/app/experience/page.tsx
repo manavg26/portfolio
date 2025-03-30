@@ -7,7 +7,10 @@ import ExperienceCard from "@/components/experience/ExperienceCard";
 
 export default function ExperiencePage() {
   return (
-    <SectionContainer className="py-20 md:py-28">
+    <SectionContainer 
+      className="py-20 md:py-28"
+      style={{ backgroundColor: 'var(--background-color)' }}
+    >
       <SectionHeading
         title="Professional Experience"
         subtitle="My journey as a software engineer and the roles I've taken on."
@@ -16,7 +19,7 @@ export default function ExperiencePage() {
       
       <div className="mt-12 md:mt-16 relative">
         {/* Timeline line */}
-        <div className="absolute left-5 md:left-7 top-0 bottom-0 w-0.5 bg-slate-800" />
+        <div className="absolute left-5 md:left-7 top-0 bottom-0 w-0.5" style={{ backgroundColor: 'var(--border-color)' }} />
         
         <div className="ml-12 space-y-12">
           {siteConfig.experience.map((exp, index) => (

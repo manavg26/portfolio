@@ -38,6 +38,7 @@
   --border: 30 41 59; /* slate-800 */
   --ring: 14 165 233; /* sky-500 */
 
+  /* Theme color variables */
   --background-color: #0f172a;
   --text-color: #f8fafc;
   --card-bg: rgba(15, 23, 42, 0.8);
@@ -83,6 +84,7 @@
   --border: 203 213 225; /* slate-300 */
   --ring: 2 132 199; /* sky-700 */
 
+  /* Theme color variables */
   --background-color: #f8fafc;
   --text-color: #0f172a;
   --card-bg: rgba(255, 255, 255, 0.9);
@@ -133,13 +135,7 @@
   scrollbar-width: none;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* System preference detection */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -196,7 +192,7 @@ header {
   z-index: 50;
 }
 
-/* Theme-specific component overrides */
+/* Theme-specific component overrides for light mode */
 .light-theme .bg-blue-600 {
   background-color: var(--primary-color) !important;
 }

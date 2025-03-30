@@ -32,7 +32,7 @@ export default function ProjectCard({
   const techArray = Array.isArray(technologies) ? technologies : [];
   
   // Single gradient for all project cards - darker with blackish edges
-  const gradient = 'bg-gradient-to-br from-gray-900 via-blue-900 to-slate-900';
+  const gradient = 'bg-gradient-to-br';
 
   return (
     <motion.div
@@ -42,6 +42,7 @@ export default function ProjectCard({
         featured && 'md:col-span-2',
         className
       )}
+      style={{ borderColor: 'var(--border-color)' }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       initial={{ opacity: 0, y: 20 }}
@@ -50,16 +51,19 @@ export default function ProjectCard({
       transition={{ duration: 0.5 }}
     >
       {/* Project Header with Gradient Background */}
-      <div className={`relative h-48 md:h-64 w-full overflow-hidden ${gradient}`}>
+      <div className={`relative h-48 md:h-64 w-full overflow-hidden ${gradient}`}
+           style={{
+             background: 'linear-gradient(to bottom right, var(--gradient-from), var(--gradient-to))'
+           }}>
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-10 mix-blend-overlay" 
              style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.2" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="1"/%3E%3Ccircle cx="13" cy="13" r="1"/%3E%3C/g%3E%3C/svg%3E")' }} />
         
         {/* Gradient Overlay */}
         <div className={cn(
-          'absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent',
+          'absolute inset-0',
           isHovered && 'opacity-90'
-        )} />
+        )} style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }} />
         
         {/* Technologies */}
         {techArray.length > 0 && (
@@ -67,13 +71,25 @@ export default function ProjectCard({
             {techArray.slice(0, 4).map((tech, index) => (
               <span 
                 key={index}
-                className="text-xs px-2 py-1 rounded-full bg-blue-100 text-black font-medium backdrop-blur-sm dark:bg-slate-800/80 dark:text-slate-200"
+                className="text-xs px-2 py-1 rounded-full font-medium backdrop-blur-sm"
+                style={{ 
+                  backgroundColor: 'var(--tag-bg, rgba(255,255,255,0.1))', 
+                  color: 'var(--tag-text, white)',
+                  border: '1px solid var(--tag-border, transparent)',
+                  boxShadow: 'var(--tag-shadow, none)'
+                }}
               >
                 {tech}
               </span>
             ))}
             {techArray.length > 4 && (
-              <span className="text-xs px-2 py-1 rounded-full bg-blue-100 text-black font-medium backdrop-blur-sm dark:bg-slate-800/80 dark:text-slate-200">
+              <span className="text-xs px-2 py-1 rounded-full font-medium backdrop-blur-sm"
+                    style={{ 
+                      backgroundColor: 'var(--tag-bg, rgba(255,255,255,0.1))', 
+                      color: 'var(--tag-text, white)',
+                      border: '1px solid var(--tag-border, transparent)',
+                      boxShadow: 'var(--tag-shadow, none)'
+                    }}>
                 +{techArray.length - 4}
               </span>
             )}
@@ -82,9 +98,9 @@ export default function ProjectCard({
       </div>
       
       {/* Content */}
-      <div className="p-4 md:p-6">
-        <h3 className="text-xl font-bold">{title}</h3>
-        <p className="mt-2 text-slate-400 text-sm line-clamp-3">{description}</p>
+      <div className="p-4 md:p-6" style={{ backgroundColor: 'var(--card-bg)' }}>
+        <h3 className="text-xl font-bold" style={{ color: 'var(--text-color)' }}>{title}</h3>
+        <p className="mt-2 text-sm line-clamp-3" style={{ color: 'var(--text-color)', opacity: 0.7 }}>{description}</p>
         
         {/* Links */}
         <div className="mt-4 flex gap-3">

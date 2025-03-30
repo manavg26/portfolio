@@ -1,17 +1,15 @@
 "use client";
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import { handleImageError, getPlaceholder } from '@/utils/imageLoader';
 import Button from '@/components/ui/Button';
 import { cn } from '@/utils/cn';
 
 interface ProjectCardProps {
   title: string;
   description?: string;
-  image?: string;
+  image?: string; // Keeping for backward compatibility
   technologies?: string[];
   link?: string;
   demoLink?: string;
@@ -22,7 +20,6 @@ interface ProjectCardProps {
 export default function ProjectCard({
   title,
   description = "No description available",
-  image = "/images/placeholder-project.jpg",
   technologies = [],
   link,
   demoLink,
@@ -30,25 +27,12 @@ export default function ProjectCard({
   className,
 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [imageError, setImageError] = useState(false);
   
-  // Get placeholder in case of image error
-  const placeholder = getPlaceholder('project');
-  
-  // Ensure image path is correct - add safeguard
-  const imageSrc = imageError || !image 
-    ? placeholder.src 
-    : image.startsWith('http') || image.startsWith('/') 
-      ? image 
-      : `/${image}`;
-
-  // Determine sizes to use based on featured status
-  const sizes = featured
-    ? '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw'
-    : '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
-
   // Ensure technologies is always an array
   const techArray = Array.isArray(technologies) ? technologies : [];
+  
+  // Single gradient for all project cards - darker with blackish edges
+  const gradient = 'bg-gradient-to-br from-gray-900 via-blue-900 to-slate-900';
 
   return (
     <motion.div
@@ -65,30 +49,15 @@ export default function ProjectCard({
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.5 }}
     >
-      {/* Project Image */}
-      <div className="relative h-48 md:h-64 w-full overflow-hidden">
-        <Image
-          src={imageSrc}
-          alt={title || "Project Image"}
-          fill
-          placeholder="blur"
-          blurDataURL={placeholder.blurDataURL}
-          className={cn(
-            'project-image object-cover transition-transform duration-500 group-hover:scale-110',
-            isHovered && 'scale-110 blur-[2px]'
-          )}
-          onError={(e) => {
-            handleImageError(e, 'project');
-            setImageError(true);
-          }}
-          priority={featured}
-          sizes={sizes}
-          data-original-src={image} // Store original src for error logging
-        />
+      {/* Project Header with Gradient Background */}
+      <div className={`relative h-48 md:h-64 w-full overflow-hidden ${gradient}`}>
+        {/* Pattern Overlay */}
+        <div className="absolute inset-0 opacity-10 mix-blend-overlay" 
+             style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.2" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="1"/%3E%3Ccircle cx="13" cy="13" r="1"/%3E%3C/g%3E%3C/svg%3E")' }} />
         
         {/* Gradient Overlay */}
         <div className={cn(
-          'absolute inset-0 bg-gradient-to-t from-slate-800/90 via-slate-700/40 to-transparent dark:from-slate-900 dark:via-slate-900/50',
+          'absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent',
           isHovered && 'opacity-90'
         )} />
         

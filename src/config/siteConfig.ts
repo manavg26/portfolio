@@ -1,7 +1,7 @@
 'use client';
 
-import { FaReact, FaNodeJs, FaJava, FaPython, FaHtml5, FaCss3, FaGitAlt, FaDocker, FaAws } from 'react-icons/fa';
-import { SiTypescript, SiJavascript } from 'react-icons/si';
+import { FaReact, FaNodeJs, FaJava, FaPython, FaGitAlt, FaDocker, FaAws, FaDatabase, FaMicrosoft } from 'react-icons/fa';
+import { SiTypescript, SiJavascript, SiApachekafka, SiRabbitmq, SiMongodb } from 'react-icons/si';
 
 export const siteConfig = {
   name: "Manav Goel",
@@ -74,53 +74,35 @@ export const siteConfig = {
   skills: [
     { 
       category: "Programming Languages",
-      items: ["JavaScript", "TypeScript", "Python", "Java", "SQL", "HTML/CSS"]
+      items: ["Python", "Java", "Golang", "TypeScript"]
     },
     {
       category: "Frameworks & Libraries",
-      items: ["Node.js", "React", "Next.js", "Express", "Spring Boot"]
+      items: ["Node.js", "React", "Django", "Express", "Spring Boot"]
     },
     {
       category: "Tools & Platforms",
-      items: ["Git", "Docker", "AWS", "CI/CD", "RESTful APIs", "WebSockets"]
+      items: ["Git", "Kafka", "Docker", "Kubernetes", "AWS", "CI/CD", "RabbitMQ", "WebSockets"]
     },
     {
       category: "Database",
-      items: ["MongoDB", "MySQL", "PostgreSQL", "Redis"]
+      items: ["MongoDB", "MySQL", "PostgreSQL", "Cassandra", "Redis"]
     }
   ],
   techIcons: [
-    { name: "JavaScript", iconName: "SiJavascript", color: "#F7DF1E" },
-    { name: "TypeScript", iconName: "SiTypescript", color: "#3178C6" },
-    { name: "React", iconName: "FaReact", color: "#61DAFB" },
     { name: "Node.js", iconName: "FaNodeJs", color: "#339933" },
     { name: "Python", iconName: "FaPython", color: "#3776AB" },
     { name: "Java", iconName: "FaJava", color: "#007396" },
-    { name: "HTML5", iconName: "FaHtml5", color: "#E34F26" },
-    { name: "CSS3", iconName: "FaCss3", color: "#1572B6" },
+    { name: "JavaScript", iconName: "SiJavascript", color: "#F7DF1E" },
+    { name: "MySQL", iconName: "FaDatabase", color: "#E34F26" },
+    { name: "MongoDB", iconName: "SiMongodb", color: "#4DB33D" },
+    { name: "Kafka", iconName: "SiApachekafka", color: "#1572B6" },
+    { name: "RabbitMQ", iconName: "SiRabbitmq", color: "#FF6600" },
     { name: "Git", iconName: "FaGitAlt", color: "#F05032" },
     { name: "Docker", iconName: "FaDocker", color: "#2496ED" },
-    { name: "AWS", iconName: "FaAws", color: "#FF9900" }
-  ],
-  testimonials: [
-    {
-      name: "Raj Sharma",
-      position: "Engineering Manager at Paytm",
-      content: "Manav is one of the most technically skilled engineers I've worked with. His ability to architect complex solutions while maintaining clean, maintainable code is exceptional. He led our Travel AI project with great success, managing to handle high throughput requirements while ensuring top-notch security.",
-      image: "/images/testimonials/raj-sharma.jpg",
-    },
-    {
-      name: "Priya Patel",
-      position: "Senior Product Manager",
-      content: "Working with Manav on the WebSocket implementation was a pleasure. He quickly understood our product requirements and translated them into technical solutions that exceeded expectations. His attention to detail and focus on performance has been invaluable to our team.",
-      image: "/images/testimonials/priya-patel.jpg",
-    },
-    {
-      name: "Alex Chen",
-      position: "Tech Lead at AWS",
-      content: "Manav's expertise in cloud architecture is impressive. During our collaboration on a high-scale project, he proposed optimization strategies that reduced our AWS costs by 30% while improving performance. His deep understanding of both backend systems and cloud infrastructure makes him a truly valuable engineer.",
-      image: "/images/testimonials/alex-chen.jpg",
-    }
+    { name: "Azure", iconName: "FaMicrosoft", color: "#0089D6" },
+    { name: "AWS", iconName: "FaAws", color: "#FF9900" },
+    { name: "TypeScript", iconName: "SiTypescript", color: "#3178C6" }
   ]
 };
 
@@ -129,15 +111,17 @@ export function getIconByName(name: string) {
   switch (name) {
     case 'SiJavascript': return SiJavascript;
     case 'SiTypescript': return SiTypescript;
-    case 'FaReact': return FaReact;
     case 'FaNodeJs': return FaNodeJs;
     case 'FaPython': return FaPython;
     case 'FaJava': return FaJava;
-    case 'FaHtml5': return FaHtml5;
-    case 'FaCss3': return FaCss3;
     case 'FaGitAlt': return FaGitAlt;
     case 'FaDocker': return FaDocker;
     case 'FaAws': return FaAws;
+    case 'FaMicrosoft': return FaMicrosoft;
+    case 'SiApachekafka': return SiApachekafka;
+    case 'SiRabbitmq': return SiRabbitmq;
+    case 'FaDatabase': return FaDatabase;
+    case 'SiMongodb': return SiMongodb;
     default: return FaReact; // Fallback
   }
 }

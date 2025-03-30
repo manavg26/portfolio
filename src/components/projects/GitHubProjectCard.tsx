@@ -27,8 +27,8 @@ const defaultRepo: Partial<GitHubRepo> = {
   updated_at: new Date().toISOString()
 };
 
-// Single gradient for all project cards - darker with blackish edges
-const gradient = 'bg-gradient-to-br from-gray-900 via-blue-900 to-slate-900';
+// Use gradient CSS class only
+const gradient = 'bg-gradient-to-br';
 
 export default function GitHubProjectCard({
   repo,
@@ -56,11 +56,12 @@ export default function GitHubProjectCard({
   return (
     <motion.div
       className={cn(
-        'group relative overflow-hidden rounded-xl border border-slate-800 backdrop-blur-sm',
-        'transition-all duration-300 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10',
+        'group relative overflow-hidden rounded-xl border backdrop-blur-sm',
+        'transition-all duration-300 hover:shadow-lg',
         featured && 'md:col-span-2',
         className
       )}
+      style={{ borderColor: 'var(--border-color)' }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       initial={{ opacity: 0, y: 20 }}
@@ -69,22 +70,25 @@ export default function GitHubProjectCard({
       transition={{ duration: 0.5 }}
     >
       {/* Repository Header with Gradient Background */}
-      <div className={`relative h-48 md:h-64 w-full overflow-hidden ${gradient}`}>
+      <div className={`relative h-48 md:h-64 w-full overflow-hidden ${gradient}`}
+           style={{
+             background: 'linear-gradient(to bottom right, var(--gradient-from), var(--gradient-to))'
+           }}>
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-10 mix-blend-overlay" 
           style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23ffffff" fill-opacity="0.2" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="1"/%3E%3Ccircle cx="13" cy="13" r="1"/%3E%3C/g%3E%3C/svg%3E")' }} />
         
         {/* Gradient Overlay */}
         <div className={cn(
-          'absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent',
+          'absolute inset-0',
           isHovered && 'opacity-90'
-        )} />
+        )} style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }} />
         
         {/* Repository Name and Stars */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-          <h3 className="text-xl font-bold truncate text-white">{displayName}</h3>
+          <h3 className="text-xl font-bold truncate" style={{ color: 'var(--text-color)' }}>{displayName}</h3>
           {safeRepo.stargazers_count > 0 && (
-            <div className="flex items-center space-x-1 text-white text-sm">
+            <div className="flex items-center space-x-1 text-sm" style={{ color: 'var(--text-color)' }}>
               <FaStar className="text-yellow-400" />
               <span>{safeRepo.stargazers_count}</span>
             </div>
@@ -95,7 +99,13 @@ export default function GitHubProjectCard({
         <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
           {safeRepo.language && (
             <span 
-              className="text-xs px-2 py-1 rounded-full bg-blue-100 text-black font-medium backdrop-blur-sm dark:bg-slate-800/80 dark:text-slate-200 flex items-center"
+              className="text-xs px-2 py-1 rounded-full font-medium backdrop-blur-sm flex items-center"
+              style={{ 
+                backgroundColor: 'var(--tag-bg, rgba(255,255,255,0.1))', 
+                color: 'var(--tag-text, white)',
+                border: '1px solid var(--tag-border, transparent)',
+                boxShadow: 'var(--tag-shadow, none)'
+              }}
             >
               <span 
                 className="w-2 h-2 rounded-full mr-1.5" 
@@ -109,7 +119,13 @@ export default function GitHubProjectCard({
             (topic !== safeRepo.language) && (
               <span 
                 key={index}
-                className="text-xs px-2 py-1 rounded-full bg-blue-100 text-black font-medium backdrop-blur-sm dark:bg-slate-800/80 dark:text-slate-200"
+                className="text-xs px-2 py-1 rounded-full font-medium backdrop-blur-sm"
+                style={{ 
+                  backgroundColor: 'var(--tag-bg, rgba(255,255,255,0.1))', 
+                  color: 'var(--tag-text, white)',
+                  border: '1px solid var(--tag-border, transparent)',
+                  boxShadow: 'var(--tag-shadow, none)'
+                }}
               >
                 {topic}
               </span>
@@ -117,7 +133,13 @@ export default function GitHubProjectCard({
           ))}
           
           {topics.length > 4 && (
-            <span className="text-xs px-2 py-1 rounded-full bg-blue-100 text-black font-medium backdrop-blur-sm dark:bg-slate-800/80 dark:text-slate-200">
+            <span className="text-xs px-2 py-1 rounded-full font-medium backdrop-blur-sm"
+                 style={{ 
+                   backgroundColor: 'var(--tag-bg, rgba(255,255,255,0.1))', 
+                   color: 'var(--tag-text, white)',
+                   border: '1px solid var(--tag-border, transparent)',
+                   boxShadow: 'var(--tag-shadow, none)'
+                 }}>
               +{topics.length - 4}
             </span>
           )}
@@ -125,8 +147,8 @@ export default function GitHubProjectCard({
       </div>
       
       {/* Content */}
-      <div className="p-5">
-        <p className="text-slate-400 text-sm line-clamp-3 min-h-[3em]">
+      <div className="p-5" style={{ backgroundColor: 'var(--card-bg)' }}>
+        <p className="text-sm line-clamp-3 min-h-[3em]" style={{ color: 'var(--text-color)', opacity: 0.7 }}>
           {safeRepo.description || `A ${safeRepo.language || 'code'} repository`}
         </p>
         

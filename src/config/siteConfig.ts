@@ -50,7 +50,7 @@ export const siteConfig = {
       description: "Node.js backend for real-time speech processing",
       image: "/images/projects/travel-ai.jpg", 
       technologies: ["Node.js", "WebSockets", "AI Integration"],
-      link: "https://github.com/manavg26/Travel-AI",
+      link: "https://github.com/manavg26/Travel-ai-service",
       featured: true
     },
     {
@@ -66,7 +66,7 @@ export const siteConfig = {
       description: "Collection of data analysis projects",
       image: "/images/projects/data-science.jpg",
       technologies: ["Python", "Pandas", "Scikit-learn", "Matplotlib"],
-      link: "https://github.com/manavg26/Data-Science-Portfolio",
+      link: "https://github.com/manavg26/Data-Science",
       featured: true
     },
     // Add more projects here

@@ -50,6 +50,14 @@
   --comment-color: #22c55e;  /* green-600 */
   --keyword-color: #a855f7;  /* purple-500 */
   --string-color: #eab308;   /* yellow-500 */
+  
+  /* Project card gradient variables - Dark theme */
+  --gradient-from: #0f172a;  /* slate-950 */
+  --gradient-to: #1e3a8a;    /* blue-900 */
+  --tag-bg: rgba(30, 41, 59, 0.8);  /* slate-800 with opacity */
+  --tag-text: #f8fafc;       /* slate-50 */
+  --tag-border: transparent;
+  --tag-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .light-theme {
@@ -87,6 +95,14 @@
   --comment-color: #16a34a;  /* green-600 */
   --keyword-color: #9333ea;  /* purple-700 */
   --string-color: #ca8a04;   /* yellow-600 */
+  
+  /* Project card gradient variables - Light theme */
+  --gradient-from: #dbeafe;  /* blue-100 */
+  --gradient-to: #eff6ff;    /* blue-50 */
+  --tag-bg: rgba(37, 99, 235, 0.2);  /* blue-600 with higher opacity */
+  --tag-text: #1e3a8a;       /* blue-900 - darker for better contrast */
+  --tag-border: rgba(37, 99, 235, 0.3);  /* blue-600 with opacity for subtle border */
+  --tag-shadow: 0 1px 3px rgba(37, 99, 235, 0.15);  /* light blue shadow */
 }
 
 /* Custom scrollbar */

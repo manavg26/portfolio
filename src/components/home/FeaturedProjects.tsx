@@ -27,7 +27,7 @@ export default function FeaturedProjects() {
             image={project.image}
             technologies={project.technologies}
             link={project.link}
-            featured={index === 0}
+            featured={false}
           />
         ))}
       </div>

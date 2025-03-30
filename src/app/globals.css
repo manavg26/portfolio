@@ -4,6 +4,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom animations */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
 :root {
   /* Base colors for dark theme (default) */
   --background: 15 23 42; /* slate-950 */
@@ -34,6 +45,11 @@
   --accent-color: #3b82f6;
   --primary-color: #3b82f6;
   --secondary-color: #8b5cf6;
+  
+  /* Syntax highlighting colors - Dark theme */
+  --comment-color: #22c55e;  /* green-600 */
+  --keyword-color: #a855f7;  /* purple-500 */
+  --string-color: #eab308;   /* yellow-500 */
 }
 
 .light-theme {
@@ -66,6 +82,11 @@
   --accent-color: #2563eb;
   --primary-color: #2563eb;
   --secondary-color: #7c3aed;
+  
+  /* Syntax highlighting colors - Light theme */
+  --comment-color: #16a34a;  /* green-600 */
+  --keyword-color: #9333ea;  /* purple-700 */
+  --string-color: #ca8a04;   /* yellow-600 */
 }
 
 /* Custom scrollbar */

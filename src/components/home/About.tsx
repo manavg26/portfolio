@@ -1,13 +1,11 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import Image from 'next/image';
+import { useState, useEffect, useMemo } from 'react';
 import { SectionContainer } from '@/components/layout/Container';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Button from '@/components/ui/Button';
 import { FaArrowRight } from 'react-icons/fa';
-import { handleImageError, getPlaceholder } from '@/utils/imageLoader';
 
 // Simple animation variants
 const fadeInVariants = {
@@ -19,7 +17,7 @@ const fadeInVariants = {
   }
 };
 
-const imageVariants = {
+const codeBlockVariants = {
   hidden: { opacity: 0, scale: 0.95 },
   visible: { 
     opacity: 1, 
@@ -29,10 +27,129 @@ const imageVariants = {
 };
 
 export default function About() {
-  const [imageError, setImageError] = useState(false);
+  // For the typing animation
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
   
-  // Get placeholder in case of image error
-  const placeholder = getPlaceholder('profile');
+  // Code lines to display with a typing effect - wrapped in useMemo
+  const codeLines = useMemo(() => [
+    '// My Developer Philosophy',
+    'const philosophy = {',
+    '  beliefs: ["Elegant code", "Simple solutions", "Security first"],',
+    '  approach: "Measure twice, code once",',
+    '  teamwork: "Best code is collaborative",',
+    '  growth: "Learn something new every day"',
+    '};',
+    '',
+    '// What drives me',
+    'function motivation() {',
+    '  return {',
+    '    purpose: "Building systems that matter",',
+    '    challenge: "Solving complex problems",',
+    '    vision: "Tech that serves humanity"',
+    '  };',
+    '}',
+  ], []);
+  
+  // Handle the typing animation
+  useEffect(() => {
+    if (currentLineIndex >= codeLines.length) {
+      return; // Typing completed
+    }
+    
+    const currentLine = codeLines[currentLineIndex];
+    const timer = setTimeout(() => {
+      if (displayedText.length < currentLine.length) {
+        setDisplayedText(currentLine.substring(0, displayedText.length + 1));
+      } else {
+        setDisplayedText('');
+        setCurrentLineIndex(prev => prev + 1);
+      }
+    }, 10); // Typing speed - reduced further for even faster animation
+    
+    return () => clearTimeout(timer);
+  }, [displayedText, currentLineIndex, codeLines]);
+  
+  // Format code with basic highlighting
+  const formatCodeWithHighlighting = (code: string) => {
+    // Define theme-aware colors for syntax highlighting
+    const commentColor = 'var(--comment-color, #22c55e)';
+    const keywordColor = 'var(--keyword-color, #a855f7)';
+    const stringColor = 'var(--string-color, #eab308)';
+    const defaultColor = 'var(--text-color)';
+    
+    return code.split('\n').map((line, index) => {
+      // Apply different styling based on line content
+      if (line.startsWith('//')) {
+        // Comments
+        return <div key={index} className="whitespace-pre" style={{ color: commentColor }}>{line}</div>;
+      } else if (line.startsWith('const') || line.startsWith('function')) {
+        // Keywords
+        const parts = line.split(/^(const|function)(\s+)/);
+        return (
+          <div key={index} className="whitespace-pre">
+            {parts.length > 1 ? (
+              <>
+                <span style={{ color: keywordColor }}>{parts[1]}</span>
+                <span style={{ color: defaultColor }}>{parts[2]}</span>
+                <span style={{ color: defaultColor }}>{parts[3] || ''}</span>
+              </>
+            ) : (
+              <span style={{ color: defaultColor }}>{line}</span>
+            )}
+          </div>
+        );
+      } else if (line.includes('return')) {
+        // Return statement
+        const parts = line.split(/^(\s*)(return)(\s+)/);
+        return (
+          <div key={index} className="whitespace-pre">
+            {parts.length > 1 ? (
+              <>
+                <span style={{ color: defaultColor }}>{parts[1]}</span>
+                <span style={{ color: keywordColor }}>{parts[2]}</span>
+                <span style={{ color: defaultColor }}>{parts[3]}</span>
+                <span style={{ color: defaultColor }}>{parts[4] || ''}</span>
+              </>
+            ) : (
+              <span style={{ color: defaultColor }}>{line}</span>
+            )}
+          </div>
+        );
+      } else if (line.includes('"')) {
+        // Line with strings
+        const stringRegex = /"([^"]*)"/g;
+        const parts = [];
+        let lastIndex = 0;
+        let match;
+        
+        // Preserve indentation at the beginning
+        const indentMatch = line.match(/^(\s+)/);
+        if (indentMatch) {
+          parts.push(<span key="indent" style={{ color: defaultColor }}>{indentMatch[0]}</span>);
+          lastIndex = indentMatch[0].length;
+        }
+        
+        while ((match = stringRegex.exec(line)) !== null) {
+          parts.push(<span key={`text-${match.index}`} style={{ color: defaultColor }}>{line.substring(lastIndex, match.index)}</span>);
+          parts.push(<span key={`str-${match.index}`} style={{ color: stringColor }}>{match[0]}</span>);
+          lastIndex = match.index + match[0].length;
+        }
+        
+        if (lastIndex < line.length) {
+          parts.push(<span key="remaining" style={{ color: defaultColor }}>{line.substring(lastIndex)}</span>);
+        }
+        
+        return <div key={index} className="whitespace-pre">{parts}</div>;
+      } else {
+        // Regular lines
+        return <div key={index} className="whitespace-pre" style={{ color: defaultColor }}>{line}</div>;
+      }
+    });
+  };
+  
+  // Get completed code
+  const completedCode = codeLines.slice(0, currentLineIndex).join('\n');
   
   return (
     <SectionContainer 
@@ -40,41 +157,82 @@ export default function About() {
       id="about"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        {/* Image Column */}
+        {/* Code Editor Column */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          variants={imageVariants}
+          variants={codeBlockVariants}
           className="relative order-2 lg:order-1"
         >
-          <div className="relative h-[400px] w-full max-w-md mx-auto lg:mx-0 overflow-hidden rounded-2xl border-2 border-slate-800">
-            <Image
-              src={imageError ? placeholder.src : "/images/profile.jpg"}
-              alt="Manav Goel"
-              fill
-              placeholder="blur"
-              blurDataURL={placeholder.blurDataURL}
-              className="profile-image object-cover"
-              onError={(e) => {
-                handleImageError(e, 'profile');
-                setImageError(true);
-              }}
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
-              data-original-src="/images/profile.jpg"
-            />
+          <div className="relative h-[450px] w-full max-w-md mx-auto lg:mx-0 overflow-hidden rounded-2xl border-2 border-slate-800 shadow-lg" style={{ 
+            backgroundColor: 'var(--card-bg)', 
+            borderColor: 'var(--border-color)',
+            color: 'var(--text-color)'
+          }}>
+            {/* Code Editor Header */}
+            <div className="h-8 flex items-center px-4" style={{ backgroundColor: 'var(--border-color)' }}>
+              <div className="flex space-x-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="ml-4 text-xs text-slate-600 dark:text-slate-400">developer-profile.js</div>
+            </div>
             
-            {/* Code snippet overlay */}
-            <div className="absolute left-0 bottom-0 w-full p-4 bg-slate-900/80 backdrop-blur-sm">
-              <pre className="text-xs text-blue-300 overflow-x-auto scrollbar-hide">
-                <code>{`const developer = {
-  name: "Manav Goel",
-  role: "Senior Software Engineer",
-  skills: ["Node.js", "Python", "Java", "Cloud"],
-  passion: "Building scalable systems"
-};`}</code>
-              </pre>
+            {/* Code Editor Content */}
+            <div className="p-4 font-mono text-sm overflow-y-auto h-[calc(100%-32px)]" style={{ color: 'var(--text-color)' }}>
+              {/* Render already completed code */}
+              <div className="space-y-1">
+                {formatCodeWithHighlighting(completedCode)}
+                
+                {/* Current typing line */}
+                {currentLineIndex < codeLines.length && (
+                  <div className="flex whitespace-pre">
+                    {/* Apply basic highlighting to the typing text */}
+                    {(() => {
+                      const line = displayedText;
+                      // Check if line starts with whitespace
+                      const indentMatch = line.match(/^(\s+)/);
+                      
+                      // Define theme-aware colors for syntax highlighting
+                      const commentColor = 'var(--comment-color, #22c55e)';
+                      const keywordColor = 'var(--keyword-color, #a855f7)';
+                      const defaultColor = 'var(--text-color)';
+                      
+                      if (line.startsWith('//')) {
+                        return <span style={{ color: commentColor }}>{displayedText}</span>;
+                      } else if (line.startsWith('const') || line.startsWith('function')) {
+                        const parts = line.split(' ');
+                        if (parts.length > 1) {
+                          return (
+                            <>
+                              <span style={{ color: keywordColor }}>{parts[0]}</span>
+                              <span style={{ color: defaultColor }}>{' ' + parts.slice(1).join(' ')}</span>
+                            </>
+                          );
+                        }
+                        return <span style={{ color: keywordColor }}>{displayedText}</span>;
+                      } else if (indentMatch) {
+                        // Handle indented lines
+                        const indent = indentMatch[0];
+                        const content = line.substring(indent.length);
+                        return (
+                          <>
+                            <span style={{ color: defaultColor }}>{indent}</span>
+                            <span style={{ color: defaultColor }}>{content}</span>
+                          </>
+                        );
+                      } else if (line.includes('return') && line.indexOf('return') === 0) {
+                        return <span style={{ color: keywordColor }}>{displayedText}</span>;
+                      } else {
+                        return <span style={{ color: defaultColor }}>{displayedText}</span>;
+                      }
+                    })()}
+                    <span className="inline-block w-2 h-4 bg-blue-500 animate-blink"></span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           
@@ -96,9 +254,9 @@ export default function About() {
             className="text-left"
           />
           
-          <div className="space-y-4 text-slate-400">
+          <div className="space-y-4 text-slate-600 dark:text-slate-400">
             <p>
-              I&apos;m a passionate Senior Software Engineer with specialized expertise in backend development, 
+              I&apos;m a passionate Software Engineer with specialized expertise in backend development, 
               AI integrations, and designing scalable systems. My journey in software development has equipped 
               me with a diverse skill set and a problem-solving mindset.
             </p>

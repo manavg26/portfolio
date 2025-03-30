@@ -106,7 +106,7 @@ function determineProjectCategory(technologies: string[]): string {
 function ProjectCardSkeleton() {
   return (
     <div className="relative overflow-hidden rounded-xl bg-slate-900 border border-slate-800 animate-pulse">
-      <div className="bg-slate-800 h-48 md:h-64 w-full"></div>
+      <div className="bg-gradient-to-br from-slate-800 to-slate-700 h-48 md:h-64 w-full"></div>
       <div className="p-4 md:p-6 space-y-3">
         <div className="h-6 bg-slate-800 rounded w-3/4"></div>
         <div className="h-4 bg-slate-800 rounded w-full"></div>

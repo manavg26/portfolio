@@ -71,7 +71,7 @@ export default function About() {
                 <code>{`const developer = {
   name: "Manav Goel",
   role: "Senior Software Engineer",
-  skills: ["Node.js", "React", "Java", "Cloud"],
+  skills: ["Node.js", "Python", "Java", "Cloud"],
   passion: "Building scalable systems"
 };`}</code>
               </pre>

@@ -64,7 +64,11 @@ export default function Testimonials() {
 
   return (
     <SectionContainer 
-      className="py-24 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden"
+      className="py-24 relative overflow-hidden"
+      style={{
+        background: 'var(--card-bg)',
+        borderColor: 'var(--border-color)'
+      }}
     >
       {/* Background decorative elements */}
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
@@ -77,17 +81,20 @@ export default function Testimonials() {
           centered
         />
         
-        <div className="flex items-center mb-8 text-blue-500">
-          <FaLinkedin className="mr-2" size={24} />
-          <span className="text-sm">Sourced from LinkedIn</span>
+        <div className="flex items-center mb-8">
+          <FaLinkedin className="mr-2" size={24} style={{ color: 'var(--accent-color)' }} />
+          <span className="text-sm" style={{ color: 'var(--accent-color)' }}>Sourced from LinkedIn</span>
         </div>
       </div>
       
       <div className="mt-8 max-w-4xl mx-auto">
-        <div className="relative bg-slate-900/50 rounded-2xl border border-slate-800 p-8 md:p-10 overflow-hidden shadow-xl">
+        <div className="relative rounded-2xl border p-8 md:p-10 overflow-hidden shadow-xl" style={{ 
+          backgroundColor: 'var(--card-bg)',
+          borderColor: 'var(--border-color)'
+        }}>
           {/* Quote Icon */}
-          <div className="absolute top-6 left-6 text-blue-500/20">
-            <FaQuoteLeft size={60} />
+          <div className="absolute top-6 left-6">
+            <FaQuoteLeft size={60} style={{ color: 'var(--accent-color)', opacity: 0.2 }} />
           </div>
           
           {/* Recommendation Content */}
@@ -106,28 +113,29 @@ export default function Testimonials() {
                 }}
                 className="text-center"
               >
-                <p className="text-slate-300 text-lg md:text-xl italic mb-8 relative z-10">
+                <p className="text-lg md:text-xl italic mb-8 relative z-10" style={{ color: 'var(--text-color)' }}>
                   &quot;{recommendation.content}&quot;
                 </p>
                 
                 <div>
-                  <h4 className="text-white font-bold">
+                  <h4 className="font-bold" style={{ color: 'var(--text-color)' }}>
                     {recommendation.linkedInProfile ? (
                       <Link 
                         href={recommendation.linkedInProfile} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="hover:text-blue-400 transition-colors flex items-center justify-center gap-1"
+                        style={{ color: 'var(--text-color)' }}
                       >
                         {recommendation.name}
-                        <FaLinkedin size={14} className="text-blue-500" />
+                        <FaLinkedin size={14} style={{ color: 'var(--accent-color)' }} />
                       </Link>
                     ) : (
                       recommendation.name
                     )}
                   </h4>
-                  <p className="text-blue-400 text-sm">{recommendation.position}</p>
-                  <p className="text-slate-500 text-xs mt-1">Recommended {formattedDate}</p>
+                  <p className="text-sm" style={{ color: 'var(--accent-color)' }}>{recommendation.position}</p>
+                  <p className="text-xs mt-1" style={{ color: 'var(--text-color)', opacity: 0.7 }}>Recommended {formattedDate}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -139,7 +147,11 @@ export default function Testimonials() {
               {/* Previous Button */}
               <button
                 onClick={prevTestimonial}
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-800 text-slate-300 hover:bg-blue-900/50 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                style={{ 
+                  backgroundColor: 'var(--border-color)',
+                  color: 'var(--text-color)'
+                }}
                 aria-label="Previous recommendation"
               >
                 <FaChevronLeft size={16} />
@@ -157,9 +169,12 @@ export default function Testimonials() {
                     className={cn(
                       "w-2.5 h-2.5 rounded-full transition-all duration-300",
                       index === currentIndex 
-                        ? "bg-blue-500 scale-110" 
-                        : "bg-slate-700 hover:bg-slate-600"
+                        ? "scale-110" 
+                        : "scale-100"
                     )}
+                    style={{
+                      backgroundColor: index === currentIndex ? 'var(--accent-color)' : 'var(--border-color)'
+                    }}
                     aria-label={`Go to recommendation ${index + 1}`}
                   />
                 ))}
@@ -168,7 +183,11 @@ export default function Testimonials() {
               {/* Next Button */}
               <button
                 onClick={nextTestimonial}
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-800 text-slate-300 hover:bg-blue-900/50 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                style={{ 
+                  backgroundColor: 'var(--border-color)',
+                  color: 'var(--text-color)'
+                }}
                 aria-label="Next recommendation"
               >
                 <FaChevronRight size={16} />
